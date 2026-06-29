@@ -70,8 +70,8 @@ def _build_parser() -> argparse.ArgumentParser:
     from drone.cli._commands import whoami as _whoami_cmd
 
     parser = _CliArgumentParser(
-        prog="drone-cli",
-        description="drone-cli — a clonable template for AgentCulture mesh agents.",
+        prog="drone",
+        description="drone — a clonable template for AgentCulture mesh agents.",
     )
     parser.add_argument(
         "--version",

@@ -1,4 +1,4 @@
-"""``drone-cli learn`` — the learnability affordance.
+"""``drone learn`` — the learnability affordance.
 
 Prints a structured self-teaching prompt. Must satisfy the agent-first rubric:
 >=200 chars and mention purpose, command map, exit codes, --json, and explain.
@@ -12,7 +12,7 @@ from drone import __version__
 from drone.cli._output import emit_result
 
 _TEXT = """\
-drone-cli — a clonable template for AgentCulture mesh agents.
+drone — a clonable template for AgentCulture mesh agents.
 
 Purpose
 -------
@@ -23,12 +23,12 @@ rename the package, and edit culture.yaml to mint a new agent.
 
 Commands
 --------
-  drone-cli whoami             Identity from culture.yaml.
-  drone-cli learn              This self-teaching prompt.
-  drone-cli explain <path>...  Markdown docs for any noun/verb path.
-  drone-cli overview           Descriptive snapshot of the agent.
-  drone-cli doctor             Check the agent-identity invariants.
-  drone-cli cli overview       Describe the CLI surface itself.
+  drone whoami             Identity from culture.yaml.
+  drone learn              This self-teaching prompt.
+  drone explain <path>...  Markdown docs for any noun/verb path.
+  drone overview           Descriptive snapshot of the agent.
+  drone doctor             Check the agent-identity invariants.
+  drone cli overview       Describe the CLI surface itself.
 
 Machine-readable output
 -----------------------
@@ -44,13 +44,13 @@ Exit-code policy
 
 More detail
 -----------
-  drone-cli explain drone-cli
+  drone explain drone
 """
 
 
 def _as_json_payload() -> dict[str, object]:
     return {
-        "tool": "drone-cli",
+        "tool": "drone",
         "version": __version__,
         "purpose": "Clonable scaffold for a new AgentCulture mesh agent.",
         "commands": [
@@ -67,7 +67,7 @@ def _as_json_payload() -> dict[str, object]:
             "2": "environment/setup error",
         },
         "json_support": True,
-        "explain_pointer": "drone-cli explain <path>",
+        "explain_pointer": "drone explain <path>",
     }
 
 

@@ -1,7 +1,7 @@
-"""Markdown catalog for ``drone-cli explain <path>``.
+"""Markdown catalog for ``drone explain <path>``.
 
 Each entry is verbatim markdown. Keys are command-path tuples. The empty tuple
-and ``("drone-cli",)`` both resolve to the root entry.
+and ``("drone",)`` both resolve to the root entry.
 
 Keep bodies self-contained: an agent reading one entry should get enough
 context without chaining reads.
@@ -10,7 +10,7 @@ context without chaining reads.
 from __future__ import annotations
 
 _ROOT = """\
-# drone-cli
+# drone
 
 A clonable template for AgentCulture mesh agents. It carries an agent-first CLI
 (cited from the teken `python-cli` reference), a mesh identity (`culture.yaml` +
@@ -20,12 +20,12 @@ buildable/deployable package baseline. Clone it, rename the package, edit
 
 ## Verbs
 
-- `drone-cli whoami` — identity probe from `culture.yaml`.
-- `drone-cli learn` — structured self-teaching prompt.
-- `drone-cli explain <path>` — markdown docs for any noun/verb.
-- `drone-cli overview` — descriptive snapshot of the agent.
-- `drone-cli doctor` — check the agent-identity invariants.
-- `drone-cli cli overview` — describe the CLI surface.
+- `drone whoami` — identity probe from `culture.yaml`.
+- `drone learn` — structured self-teaching prompt.
+- `drone explain <path>` — markdown docs for any noun/verb.
+- `drone overview` — descriptive snapshot of the agent.
+- `drone doctor` — check the agent-identity invariants.
+- `drone cli overview` — describe the CLI surface.
 
 ## Exit-code policy
 
@@ -36,49 +36,49 @@ buildable/deployable package baseline. Clone it, rename the package, edit
 
 ## See also
 
-- `drone-cli explain whoami`
-- `drone-cli explain doctor`
+- `drone explain whoami`
+- `drone explain doctor`
 """
 
 _WHOAMI = """\
-# drone-cli whoami
+# drone whoami
 
 Reports the agent's identity from `culture.yaml`: nick (`suffix`), backend,
 served model, and the package version. Read-only.
 
 ## Usage
 
-    drone-cli whoami
-    drone-cli whoami --json
+    drone whoami
+    drone whoami --json
 """
 
 _LEARN = """\
-# drone-cli learn
+# drone learn
 
 Prints a structured self-teaching prompt covering purpose, command map,
 exit-code policy, `--json` support, and the `explain` pointer.
 
 ## Usage
 
-    drone-cli learn
-    drone-cli learn --json
+    drone learn
+    drone learn --json
 """
 
 _EXPLAIN = """\
-# drone-cli explain <path>
+# drone explain <path>
 
 Prints markdown documentation for any noun/verb path. Unlike `--help` (terse,
 positional), `explain` is global and addressable by path.
 
 ## Usage
 
-    drone-cli explain drone-cli
-    drone-cli explain whoami
-    drone-cli explain --json <path>
+    drone explain drone
+    drone explain whoami
+    drone explain --json <path>
 """
 
 _OVERVIEW = """\
-# drone-cli overview
+# drone overview
 
 Read-only descriptive snapshot of the agent: identity (from `culture.yaml`), the
 verb surface, and the sibling-pattern artifacts the template carries. Accepts an
@@ -86,12 +86,12 @@ ignored `target` so a stray path never hard-fails.
 
 ## Usage
 
-    drone-cli overview
-    drone-cli overview --json
+    drone overview
+    drone overview --json
 """
 
 _DOCTOR = """\
-# drone-cli doctor
+# drone doctor
 
 Checks the agent-identity invariants `steward doctor` verifies:
 prompt-file-present and backend-consistency (`colleague` → `AGENTS.colleague.md`), plus a
@@ -99,26 +99,26 @@ skills-present check. Exits 1 when unhealthy.
 
 ## Usage
 
-    drone-cli doctor
-    drone-cli doctor --json
+    drone doctor
+    drone doctor --json
 """
 
 _CLI = """\
-# drone-cli cli
+# drone cli
 
 Noun group for CLI-surface introspection. `cli overview` describes the CLI
 itself (distinct from the global `overview`, which describes the agent).
 
 ## Usage
 
-    drone-cli cli overview
-    drone-cli cli overview --json
+    drone cli overview
+    drone cli overview --json
 """
 
 
 ENTRIES: dict[tuple[str, ...], str] = {
     (): _ROOT,
-    ("drone-cli",): _ROOT,
+    ("drone",): _ROOT,
     ("whoami",): _WHOAMI,
     ("learn",): _LEARN,
     ("explain",): _EXPLAIN,
