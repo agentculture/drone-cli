@@ -20,6 +20,12 @@ declares a culture agent (`culture.yaml`, `backend: colleague`), and
 `core.skill_loader` silently skips any `SKILL.md` lacking `type:` — so the field
 is load-bearing, even where guildmaster's upstream copy omits it.
 
+Two further skills — `remember` and `recall` — are **first-party to
+[`agentculture/eidetic-cli`](https://github.com/agentculture/eidetic-cli)**, not
+guildmaster: the write/read halves of eidetic's shared `~/.eidetic/memory`
+surface (added in 0.4.0). They are vendored directly from eidetic-cli and bring
+the kit to 14 skills total.
+
 | Skill | Upstream | Origin | Notes | Last synced |
 |-------|----------|--------|-------|-------------|
 | `cicd` | `../guildmaster/.claude/skills/cicd/` | guildmaster | CI/CD lane layered on `devex pr`: the 5 thin scripts (`workflow.sh`, `pr-status.sh`, `pr-reply.sh`, `_resolve-nick.sh`, `portability-lint.sh`) delegate lint/open/read/reply/delta to `devex` and add the `status` / `await` SonarCloud-gating extensions. Consumer-identifying prose (`guildmaster` → `drone-cli`) adapted in the description + heading; upstream history (`Renamed from pr-review in steward 0.7.0; rebased on devex in 0.12.0`) and env-var literals (`STEWARD_*`) kept verbatim. The PR signature resolves at runtime from `culture.yaml` via `_resolve-nick.sh` (→ `drone-cli`). Requires `devex` on PATH. | 2026-05-26 (guildmaster 0.6.0) |
@@ -34,6 +40,8 @@ is load-bearing, even where guildmaster's upstream copy omits it.
 | `spec-to-plan` | `../guildmaster/.claude/skills/spec-to-plan/` | **devague** (re-broadcast via guildmaster) | spec→plan leg of the devague workflow chain. Verbatim (already carried `type: command`). | 2026-05-26 (guildmaster 0.6.0) |
 | `assign-to-workforce` | `../guildmaster/.claude/skills/assign-to-workforce/` | **devague** (re-broadcast via guildmaster) | plan→parallel-implementation leg of the devague workflow chain. Verbatim (already carried `type: command`). | 2026-05-26 (guildmaster 0.6.0) |
 | `ask-colleague` | `../colleague/.claude/skills/ask-colleague/` | **colleague** (renamed from convertible; vendored directly — guildmaster re-broadcast pending) | The first-party front door to the `colleague` CLI: hand a scoped task to a *different* engine/mind via `explore` / `review` / `write`, grade a finished work item via `feedback` (the ROI loop), and reap stale/corrupt `colleague/*` branches a crashed run left behind via `clean`. Every verb takes `--json` (result JSON on stdout, diagnostics on stderr). `explore`/`review` run isolated in a throwaway `git worktree`; `write` **previews by default** (throwaway worktree, no side effects) and refuses a dirty tree only when applying (`--apply` / `--pr`). Verbatim except one consumer-identifying clause in the Provenance paragraph (`colleague vendors from guildmaster` → `drone-cli vendors from guildmaster`); already carried `type: command`. Optional runtime dep: **`colleague`** on PATH. | 2026-06-12 (colleague 1.7.0, direct) |
+| `remember` | `../eidetic-cli/.claude/skills/remember/` | **eidetic-cli** (first-party) | Write half of the shared `~/.eidetic/memory` surface; drives `eidetic remember` (idempotent upsert of one JSON record or an NDJSON batch on stdin). `.sh` wrapper byte-verbatim from eidetic-cli; `SKILL.md` localized only in the illustrative `--scope <nick>` examples. Defaults to this agent's PRIVATE scope (suffix from `culture.yaml`). Runtime dep: the `eidetic` CLI on PATH. | 2026-06-23 (eidetic-cli, direct) |
+| `recall` | `../eidetic-cli/.claude/skills/recall/` | **eidetic-cli** (first-party) | Read half of the shared `~/.eidetic/memory` surface; drives `eidetic recall` with four search modes (exact / approximate / keyword / hybrid). `.sh` wrapper byte-verbatim from eidetic-cli; `SKILL.md` localized only in the `--scope <nick>` examples. Runtime dep: the `eidetic` CLI on PATH. | 2026-06-23 (eidetic-cli, direct) |
 
 ## Re-sync procedure
 

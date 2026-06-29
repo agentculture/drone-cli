@@ -9,18 +9,29 @@ Agent and CLI to control a single flying drone (UAV) — connect, arm, fly missi
 - **A mesh identity** — `culture.yaml` (`suffix` + `backend`) and the matching
   resident prompt file (`AGENTS.colleague.md`, since this template runs
   `backend: colleague`).
-- **The canonical guildmaster skill kit** (11 skills) under `.claude/skills/`,
-  vendored cite-don't-import. See [`docs/skill-sources.md`](docs/skill-sources.md).
+- **The canonical guildmaster skill kit plus the eidetic memory skills**
+  (14 skills) under `.claude/skills/`, vendored cite-don't-import. See
+  [`docs/skill-sources.md`](docs/skill-sources.md).
 - **A build + deploy baseline** — pytest, lint, the agent-first rubric gate, and
   PyPI Trusted Publishing wired into GitHub Actions.
 
 ## Quickstart
 
+Install the published CLI — the distribution name is `drone-cli`, the command it
+installs is `drone`:
+
+```bash
+uv tool install drone-cli   # or: pipx install drone-cli
+drone whoami                 # identity from culture.yaml
+drone learn                  # self-teaching prompt (add --json)
+```
+
+From a source checkout, prefix the command with `uv run`:
+
 ```bash
 uv sync
 uv run pytest -n auto                 # run the test suite
-uv run drone-cli whoami  # identity from culture.yaml
-uv run drone-cli learn   # self-teaching prompt (add --json)
+uv run drone whoami
 uv run teken cli doctor . --strict    # the agent-first rubric gate CI runs
 ```
 
@@ -41,11 +52,11 @@ error, `3+` reserved.
 
 ## Make it your own
 
-1. Rename the package `drone/` and the `drone-cli`
-   CLI/dist name throughout `pyproject.toml`, the package, `tests/`,
-   `sonar-project.properties`, and this `README.md`. The name is hard-coded in
-   ~100 places, so list every occurrence first — see the `git grep` discovery
-   command in [`CLAUDE.md`](CLAUDE.md), the authoritative rename procedure.
+1. Rename the import package `drone/`, the `drone` command (`[project.scripts]`),
+   and the `drone-cli` distribution name throughout `pyproject.toml`, the package,
+   `tests/`, `sonar-project.properties`, and this `README.md`. The names are
+   hard-coded in ~100+ places, so list every occurrence first — see the `git grep`
+   discovery commands in [`CLAUDE.md`](CLAUDE.md), the authoritative rename procedure.
 2. Edit `culture.yaml` with your `suffix` and `backend`.
 3. Rewrite `CLAUDE.md` for your agent and run `/init`.
 4. Re-vendor only the skills you need from guildmaster (see

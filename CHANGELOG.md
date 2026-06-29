@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/). This project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] - 2026-06-29
+
+### Fixed
+
+- **Command/distribution names made consistent — command is `drone`, distribution
+  is `drone-cli`.** The console script is `drone` (`uv tool install drone-cli`
+  installs a `drone` command), but the argparse `prog`, the `explain` catalog
+  self-key, the `learn`/`overview`/`doctor` output, and every `README.md` example
+  still said `drone-cli`. Two of those were real bugs: the README's
+  `uv run drone-cli …` invocations did not exist as a command, and the agent-first
+  rubric gate (`teken cli doctor . --strict`) failed `explain_self`, which runs
+  `explain <command-name>` (`explain drone`) and had no catalog entry. Flipped all
+  command-facing surfaces to `drone` (prog, catalog keys/bodies, `learn` text and
+  JSON `tool` field, `overview`/`doctor` subjects, the `explain` remediation hint
+  and path help) and updated the README to install via `drone-cli` and run via
+  `drone`. The distribution name (`pyproject` `name`, repo, sonar `projectKey`),
+  the import package (`drone`), and the mesh nick (`culture.yaml` `suffix`, what
+  `whoami` reports as `nick: drone-cli`) are unchanged.
+- **`README.md` skill count corrected 11 → 14** and `docs/skill-sources.md`
+  brought up to date — the provenance ledger was missing the `remember` and
+  `recall` memory skills vendored from eidetic-cli in 0.4.0.
+- Regenerated `uv.lock`, which was still pinned at `0.3.4`.
+
 ## [0.4.0] - 2026-06-23
 
 ### Added

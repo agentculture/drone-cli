@@ -1,6 +1,6 @@
 [project]
 name = "drone-cli"
-version = "0.4.0"
+version = "0.4.1"
 description = "Agent and CLI to control a single flying drone (UAV) — connect, arm, fly missions, stream telemetry, and land."
 readme = "README.md"
 license = "Apache-2.0"
